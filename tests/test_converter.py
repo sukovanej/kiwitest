@@ -1,6 +1,6 @@
 from configparser import ConfigParser
 import unittest
-from src.converter import Converter
+from currency.converter import Converter
 
 class TestConverter(unittest.TestCase):
 
@@ -33,15 +33,15 @@ class TestConverter(unittest.TestCase):
         c_to_b = self.converter.convert_from_to("C", "B");
         c_to_d = self.converter.convert_from_to("C", "D");
 
-        self.assertEqual(a_to_b, 1/2)
-        self.assertEqual(a_to_c, 1/1.5)
-        self.assertEqual(a_to_d, 1/0.5)
-        self.assertEqual(b_to_a, 2/1)
-        self.assertEqual(b_to_c, 2/1.5)
-        self.assertEqual(b_to_d, 2/0.5)
-        self.assertEqual(c_to_a, 1.5/1)
-        self.assertEqual(c_to_b, 1.5/2)
-        self.assertEqual(c_to_d, 1.5/0.5)
+        self.assertEqual(a_to_b, round(1/2, self.converter.precision))
+        self.assertEqual(a_to_c, round(1/1.5, self.converter.precision))
+        self.assertEqual(a_to_d, round(1/0.5, self.converter.precision))
+        self.assertEqual(b_to_a, round(2/1, self.converter.precision))
+        self.assertEqual(b_to_c, round(2/1.5, self.converter.precision))
+        self.assertEqual(b_to_d, round(2/0.5, self.converter.precision))
+        self.assertEqual(c_to_a, round(1.5/1, self.converter.precision))
+        self.assertEqual(c_to_b, round(1.5/2, self.converter.precision))
+        self.assertEqual(c_to_d, round(1.5/0.5, self.converter.precision))
 
 if __name__ == "__main__":
     unittest.main()
