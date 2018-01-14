@@ -16,7 +16,7 @@ def parse_arguments():
     parser.add_argument('--input_currency', help='Currency input')
     parser.add_argument('--output_currency', help='Currency output')
 
-    return {key: value for key, value in vars(parser.parse_args()).items() if value != None}
+    return {key: value for key, value in vars(parser.parse_args()).items() if value != None} # skip unfilled arguments
 
 def main():
     config = ConfigParser()
@@ -25,7 +25,7 @@ def main():
     defaults = setup_defaults(config)
     arguments = parse_arguments()
 
-    input_values = { **defaults, **arguments } # use defaults and override with arguments
+    input_values = { **defaults, **arguments } # use defaults and override it with CLI arguments
 
     converter = Converter(config)
     json_generator = JsonGenerator(converter)
