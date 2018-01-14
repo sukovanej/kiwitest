@@ -3,11 +3,9 @@ from configparser import ConfigParser
 class Converter:
 
     def __init__(self, config):
-        self.datafile = self.get_data_file(config)
+        self.precision = int(config.get("data", "precision")) + 1
+        self.datafile = config.get("data", "file")
         self.currency_data = self.load_data(self.datafile)
-
-    def get_data_file(self, config):
-        return config.get("data", "file")
 
     def load_data(self, filename):
         currency_data = dict()
@@ -26,4 +24,4 @@ class Converter:
         return currency_data
 
     def convert_from_to(self, from_currency, to_currency):
-        return self.currency_data[from_currency] / self.currency_data[to_currency]
+        return round(self.currency_data[from_currency] / self.currency_data[to_currency], self.precision)
