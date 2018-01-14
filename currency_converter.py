@@ -1,7 +1,7 @@
 from argparse import ArgumentParser
 from configparser import ConfigParser
-from src.converter import Converter
-from src.json_generator import JsonGenerator
+from currency.converter import Converter
+from currency.json_generator import JsonGenerator
 
 def setup_defaults(config):
     return {
