@@ -1,9 +1,10 @@
 from configparser import ConfigParser
+from currency.symbol import get_currency_from_symbol
 
 class Converter:
 
     def __init__(self, config):
-        self.precision = int(config.get("data", "precision")) + 1
+        self.precision = int(config.get("data", "precision"))
         self.datafile = config.get("data", "file")
         self.currency_data = self.load_data(self.datafile)
 

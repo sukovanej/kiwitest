@@ -2,6 +2,7 @@ from argparse import ArgumentParser
 from configparser import ConfigParser
 from currency.converter import Converter
 from currency.json_generator import JsonGenerator
+from currency.symbol import get_currency_from_symbol
 
 def setup_defaults(config):
     return {
@@ -27,6 +28,10 @@ def main():
         arguments = parse_arguments()
 
         input_values = { **defaults, **arguments } # use defaults and override it with CLI arguments
+
+        # convert special currency symbols
+        input_values["input_currency"] = get_currency_from_symbol(input_values["input_currency"], config)
+        input_values["output_currency"] = get_currency_from_symbol(input_values["output_currency"], config)
 
         converter = Converter(config)
         json_generator = JsonGenerator(converter)
