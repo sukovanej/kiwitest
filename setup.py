@@ -17,5 +17,8 @@ setup(
     scripts=[
         "scripts/currency_converter",
         "scripts/currency_converter_server"
+    ],
+    install_requires=[
+        'Flask'
     ]
  )

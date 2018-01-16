@@ -30,12 +30,12 @@ def currency_converter():
 def main():
     global json_generator
     config = ConfigParser()
-    config.read("/etc/config.ini")
+    config.read("/etc/currency_converter/config.ini")
 
     converter = Converter(config)
     json_generator = JsonGenerator(converter)
 
-    app.run()
+    app.run(host='0.0.0.0')
 
 
 if __name__ == "__main__":
