@@ -1,10 +1,15 @@
-from flask import Flask, request
+#!/usr/bin/env python3
 from configparser import ConfigParser
-from currency.converter import Converter
-from currency.json_generator import JsonGenerator
 import json
 
+from flask import Flask, request
+
+from currency.converter import Converter
+from currency.json_generator import JsonGenerator
+
+
 app = Flask(__name__)
+
 
 @app.route('/currency_converter')
 def currency_converter():
@@ -13,22 +18,25 @@ def currency_converter():
         input_currency = request.args.get("input_currency")
         output_currency = request.args.get("output_currency", default="ALL")
 
-        if input_currency == None:
+        if input_currency is None:
             raise ValueError("input_currency must be specified")
 
-        return json_generator.create_json(input_currency, output_currency, amount)
+        return json_generator.create_json(
+            input_currency, output_currency, amount)
     except ValueError as e:
         return json.dumps({"error": str(e)})
+
 
 def main():
     global json_generator
     config = ConfigParser()
-    config.read("config.ini")
+    config.read("/var/config.ini")
 
     converter = Converter(config)
     json_generator = JsonGenerator(converter)
 
-    app.run(host='0.0.0.0')
+    app.run()
+
 
 if __name__ == "__main__":
     main()
