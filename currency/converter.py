@@ -2,8 +2,7 @@ class Converter(object):
 
     def __init__(self, config):
         self.precision = config.getint("data", "precision")
-        self.datafile = config.get("data", "file")
-        self.currency_data = self.load_data(self.datafile)
+        self.currency_data = self.load_data("/etc/currency_converter/currency_data.txt")
 
     def load_data(self, filename):
         currency_data = dict()

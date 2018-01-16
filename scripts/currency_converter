@@ -28,7 +28,7 @@ def parse_arguments():
 def main():
     try:
         config = ConfigParser()
-        config.read("/var/config.ini")
+        config.read("/etc/config.ini")
 
         defaults = setup_defaults(config)
         arguments = parse_arguments()

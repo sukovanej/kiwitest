@@ -10,7 +10,12 @@ setup(
     author_email='Milansuk@email.cz',
     packages=[
         "currency",
-        "currency.symbol",
-        "currency.converter"
+    ],
+    data_files=[
+        ('/etc/currency_converter/', ['config.ini', "currency_data.txt"])
+    ],
+    scripts=[
+        "scripts/currency_converter",
+        "scripts/currency_converter_server"
     ]
  )

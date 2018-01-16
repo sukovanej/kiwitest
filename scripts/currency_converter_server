@@ -30,7 +30,7 @@ def currency_converter():
 def main():
     global json_generator
     config = ConfigParser()
-    config.read("/var/config.ini")
+    config.read("/etc/config.ini")
 
     converter = Converter(config)
     json_generator = JsonGenerator(converter)
