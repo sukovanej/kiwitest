@@ -9,16 +9,17 @@ setup(
     author='Milan Suk',
     author_email='Milansuk@email.cz',
     packages=[
-        "currency",
+        'currency',
     ],
     data_files=[
-        ('/etc/currency_converter/', ['config.ini', "currency_data.txt"])
+        ('/etc/currency_converter/', ['config.ini', 'currency_data.txt'])
     ],
     scripts=[
-        "scripts/currency_converter",
-        "scripts/currency_converter_server"
+        'scripts/currency_converter',
+        'scripts/currency_converter_server'
     ],
     install_requires=[
-        'Flask'
+        'Flask',
+        'redis'
     ]
  )
