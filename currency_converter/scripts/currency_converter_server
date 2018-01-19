@@ -9,6 +9,11 @@ from currency.json_generator import JsonGenerator
 
 
 app = Flask(__name__)
+config = ConfigParser()
+config.read("/etc/currency_converter/config.ini")
+
+converter = Converter(config)
+json_generator = JsonGenerator(converter)
 
 
 @app.route('/currency_converter')
@@ -28,13 +33,6 @@ def currency_converter():
 
 
 def main():
-    global json_generator
-    config = ConfigParser()
-    config.read("/etc/currency_converter/config.ini")
-
-    converter = Converter(config)
-    json_generator = JsonGenerator(converter)
-
     app.run(host='0.0.0.0')
 
 

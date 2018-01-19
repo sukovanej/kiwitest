@@ -27,7 +27,9 @@ class JsonGenerator(object):
     def get_all_currencies(self, currency_from, amount):
         result = dict()
 
-        for currency_to in self.converter.currency_data.keys():
+        for key in self.converter.pool.keys("*"):
+            currency_to = self.converter.pool.get(key)
+
             if currency_to == currency_from:
                 continue
 
