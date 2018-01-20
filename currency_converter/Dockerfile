@@ -1,6 +1,6 @@
 FROM python:3
-WORKDIR /usr/src/currency_converter
-
+WORKDIR /app
+        
 ADD . .
 RUN pip install .
 
