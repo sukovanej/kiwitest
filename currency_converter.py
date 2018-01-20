@@ -1,11 +1,8 @@
-#!/usr/bin/env python3
 from argparse import ArgumentParser
 from configparser import ConfigParser
-
 from currency.converter import Converter
 from currency.json_generator import JsonGenerator
 from currency.symbol import get_currency_from_symbol
-
 
 def setup_defaults(config):
     return {
@@ -14,33 +11,27 @@ def setup_defaults(config):
         "output_currency": config.get("default", "output_currency")
     }
 
-
 def parse_arguments():
     parser = ArgumentParser()
     parser.add_argument('--amount', help='An amount of money')
     parser.add_argument('--input_currency', help='Currency input')
     parser.add_argument('--output_currency', help='Currency output')
 
-    return {key: value for key, value in vars(parser.parse_args()).items()
-            if value is not None}  # skip unfilled arguments
-
+    return {key: value for key, value in vars(parser.parse_args()).items() if value != None} # skip unfilled arguments
 
 def main():
     try:
         config = ConfigParser()
-        config.read("/var/config.ini")
+        config.read("config.ini")
 
         defaults = setup_defaults(config)
         arguments = parse_arguments()
 
-        # use defaults and override it with CLI arguments
-        input_values = {**defaults, **arguments}
+        input_values = { **defaults, **arguments } # use defaults and override it with CLI arguments
 
         # convert special currency symbols
-        input_values["input_currency"] = get_currency_from_symbol(
-            input_values["input_currency"], config)
-        input_values["output_currency"] = get_currency_from_symbol(
-            input_values["output_currency"], config)
+        input_values["input_currency"] = get_currency_from_symbol(input_values["input_currency"], config)
+        input_values["output_currency"] = get_currency_from_symbol(input_values["output_currency"], config)
 
         converter = Converter(config)
         json_generator = JsonGenerator(converter)
@@ -52,7 +43,6 @@ def main():
         ))
     except Exception as e:
         print(str(e))
-
 
 if __name__ == "__main__":
     main()

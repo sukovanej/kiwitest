@@ -1,20 +1,22 @@
-class Converter(object):
+from configparser import ConfigParser
+from currency.symbol import get_currency_from_symbol
+
+class Converter:
 
     def __init__(self, config):
-        self.precision = config.getint("data", "precision")
+        self.precision = int(config.get("data", "precision"))
         self.datafile = config.get("data", "file")
         self.currency_data = self.load_data(self.datafile)
 
     def load_data(self, filename):
         currency_data = dict()
 
-        with open(filename) as file_obj:
-            for line_raw in file_obj:
-                line = line_raw.strip()
-                if not line:
+        with open(filename, "r") as file_obj:
+            for line in file_obj:
+                if not line.strip():
                     continue
 
-                data = line.split("=")
+                data = line.strip().split("=")
                 if len(data) != 2:
                     raise ValueError("Data format error ({})".format(data))
 
@@ -23,5 +25,4 @@ class Converter(object):
         return currency_data
 
     def convert_from_to(self, from_currency, to_currency):
-        return round(self.currency_data[from_currency] /
-                     self.currency_data[to_currency], self.precision)
+        return round(self.currency_data[from_currency] / self.currency_data[to_currency], self.precision)

@@ -2,7 +2,7 @@ FROM python:3
 WORKDIR /usr/src/currency_converter
 
 COPY requirements.txt ./
-RUN pip install .
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
-CMD [ "./scripts/currency_converter_server" ]
+CMD [ "python", "./currency_converter_run.py" ]
