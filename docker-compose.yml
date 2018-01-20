@@ -1,0 +1,10 @@
+version: '3'
+services:
+    redis:
+        image: "redis"
+    currency_converter:
+        image: "currency_converter"
+        ports:
+            - "5000:5000"
+        volumes:
+            - ./currency_converter:/usr/src/currency_converter
