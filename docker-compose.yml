@@ -3,6 +3,8 @@ services:
     redis:
         image: "redis"
     currency_converter:
+        build:
+            context: currency_converter/
         image: "currency_converter"
         ports:
             - "5000:5000"
