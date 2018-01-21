@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+from forex_getter.getter import get_rates
+import redis
+import sched
+import time
+
+def run(pool, sc):
+    print("downloading new rates...")
+    get_rates(pool)
+
+    sc.enter(60, 1, run, (pool, sc))
+
+
+def main():
+    pool = redis.Redis(host='redis', port=6379, db=0)
+
+    s = sched.scheduler(time.time, time.sleep)
+    run(pool, s)
+    s.run()
+
+
+if __name__ == "__main__":
+    main()

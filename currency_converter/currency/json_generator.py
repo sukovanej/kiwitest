@@ -28,7 +28,7 @@ class JsonGenerator(object):
         result = dict()
 
         for key in self.converter.pool.scan_iter("*"):
-            currency_to = self.converter.pool.get(key)
+            currency_to = key.decode('utf-8')
 
             if currency_to == currency_from:
                 continue

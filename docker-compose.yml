@@ -10,5 +10,9 @@ services:
             - redis
         ports:
             - "5000:5000"
-        volumes:
-            - ./currency_converter:/usr/src/currency_converter
+    forex:
+        build:
+            context: forex/
+        image: "forex"
+        depends_on:
+            - redis
