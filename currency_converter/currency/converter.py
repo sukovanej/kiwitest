@@ -4,7 +4,7 @@ import redis
 class Converter(object):
 
     def __init__(self, config):
-        self.pool = redis.Redis(host='localhost', port=6379, db=0)
+        self.pool = redis.Redis(host='redis', port=6379, db=0)
         self.precision = config.getint('data', 'precision')
 
     def convert_from_to(self, from_currency, to_currency):
